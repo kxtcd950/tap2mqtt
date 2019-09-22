@@ -14,6 +14,23 @@ The "hue" dictionary should contain the items:
 * "hub" - a string containing the IP address of the hue hub.
 * "username" - the hue API username for the connection to the hub.
 
+Example:
+
+```json
+{
+  "mqtt": {
+    "server": "localhost",
+    "username": "user",
+    "password": "pass",
+    "port": 1883
+  },
+  "hue": {
+    "hub": "192.168.0.33",
+    "username": "hue-hub-api-user"
+  }
+}
+```
+
 ## Misc
 The poller runs every three seconds.  This is to provide a reasonable responsiveness to users pressing the buttons but also not
 overload the hue hub, which will only process one API request per user per second.
