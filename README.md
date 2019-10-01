@@ -36,3 +36,9 @@ The poller runs every three seconds.  This is to provide a reasonable responsive
 overload the hue hub, which will only process one API request per user per second.
 One second will occasionally come in under the one second the hub likes; two crashed on me too, three never has.
 This shouldn't need to be three seconds, but empirically it must be.
+
+## Setup
+Setting up the taps with Hue is remarkably difficult; the tap devices must be setup in the Hue application and paired with the
+hub, but must have absolutely no actions assigned to the buttons.  With any Hue specific configuration assigned to the tap,
+the hub will not return any data to this script.
+Other than this, it's plain sailing.
