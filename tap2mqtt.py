@@ -24,6 +24,7 @@ def cb_on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
 
 def read_config(conf_file):
+    """ read config from json settings. """
     with open(conf_file) as json_file:
         the_json = json.load(json_file)
     return the_json
@@ -89,7 +90,8 @@ def main():
     client = mqtt.Client()
     connect_to_mqtt(config["mqtt"], client)
 
-    tap = json.loads(requests.get('http://'+config["hue"]["hub"]+'/api/'+config["hue"]["username"]+'/sensors').text)
+    tap = json.loads(requests.get('http://'+config["hue"]["hub"]+
+                                  '/api/'+config["hue"]["username"]+'/sensors').text)
 
     print("\n")
 
@@ -110,11 +112,15 @@ def main():
             sleep(3)
             try:
                 response = requests.get('http://'+config["hue"]["hub"]+'/api/'+
-                        config["hue"]["username"]+'/sensors').text
+                                        config["hue"]["username"]+'/sensors').text
                 tap = json.loads(response)
                 respvalid = 1
             except ValueError:
                 print("Got invalid response from hub (doesn't appear to be JSON): "+response)
+                respvalid = 0
+                continue
+            except ConnectionResetError:
+                print("Hue Hub reset the connection.  Capricious thing.")
                 respvalid = 0
                 continue
             except ConnectionError:
