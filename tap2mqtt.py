@@ -127,6 +127,10 @@ def main():
                 print("Too many connections to Hue hub - connection refused")
                 respvalid = 0
                 continue
+            except:
+                print("An unknown exception ocurred.  Retrying.")
+                respvalid = 0
+                continue
 
         process_values(tap, cur_state, huetaps, client)
 
